@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -13,10 +17,15 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPassword;
     private TextView mRegLink;
 
+    private static final int REGISTER_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Backendless.initApp( this, BackendSettings.APPLICATION_ID,
+                BackendSettings.ANDROID_SECRET_KEY, BackendSettings.VERSION );
 
         mUserName = (EditText) findViewById(R.id.enter_login);
         mPassword = (EditText) findViewById(R.id.enter_password);
@@ -26,9 +35,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //launch Registration activity
-                Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(i);
+                Intent registrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivityForResult(registrationIntent, REGISTER_REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            switch(requestCode) {
+                case REGISTER_REQUEST_CODE:
+                    //fill in the username field then set the focus to the password field
+                    String username = data.getStringExtra(BackendlessUser.ID_KEY);
+                    mUserName.setText(username);
+                    mPassword.requestFocus();
+                    Toast.makeText(this, this.getString(R.string.info_registered_success),
+                            Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

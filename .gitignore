@@ -6,3 +6,5 @@
 .DS_Store
 /build
 /captures
+BackendSettings.java
+app/src/main/java/com/garrettshorr/triptracker/BackendSettings.java

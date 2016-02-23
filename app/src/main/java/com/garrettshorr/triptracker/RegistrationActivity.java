@@ -44,8 +44,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                        CharSequence password, CharSequence confirmPassword) {
         return Validator.isNameValid(this, firstName) &&
                 Validator.isNameValid(this, lastName) &&
-                Validator.isEmailValid(this, email) &&
                 Validator.isUsernameValid(this, username) &&
+                Validator.isEmailValid(this, email) &&
                 Validator.isPasswordValid(this, password) &&
                 isPasswordMatch(password, confirmPassword);
     }

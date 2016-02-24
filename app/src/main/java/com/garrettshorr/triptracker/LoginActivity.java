@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void handleResponse(BackendlessUser loggedInUser) {
                 super.handleResponse(loggedInUser);
                 Toast.makeText(LoginActivity.this, String.format(getString(R.string.info_logged_in),
-                        loggedInUser.getObjectId()), Toast.LENGTH_LONG).show();
+                        loggedInUser.getProperty("username")), Toast.LENGTH_LONG).show();
             }
         };
     }

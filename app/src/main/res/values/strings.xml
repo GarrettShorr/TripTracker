@@ -35,6 +35,7 @@
     <string name="loading_empty">Loading…</string>
     <string name="loading_register">Sending registration request…</string>
     <string name="loading_login">Logging in…</string>
+    <string name="loading_trips">Accessing your trips...</string>
 
     <!-- info messages -->
     <string name="info_registered_template">Registered. ObjectId: %s</string>

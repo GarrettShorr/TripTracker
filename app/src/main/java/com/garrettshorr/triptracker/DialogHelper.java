@@ -13,7 +13,7 @@ public class DialogHelper {
                 .setTitle(title)
                 .setMessage(message)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Try Again",   new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

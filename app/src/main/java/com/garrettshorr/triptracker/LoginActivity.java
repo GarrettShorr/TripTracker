@@ -70,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                 super.handleResponse(loggedInUser);
                 Toast.makeText(LoginActivity.this, String.format(getString(R.string.info_logged_in),
                         loggedInUser.getProperty("username")), Toast.LENGTH_LONG).show();
+                Intent startTripList = new Intent(LoginActivity.this, TripListActivity.class);
+                startActivity(startTripList);
             }
         };
     }

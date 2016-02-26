@@ -31,6 +31,12 @@
                 android:value="com.garrettshorr.triptracker.LoginActivity"/>
         </activity>
 
+        <activity android:name=".TripListActivity"
+            android:label="Trips"
+            android:screenOrientation="portrait">
+
+        </activity>
+
         <service android:name="com.backendless.AndroidService" />
 
     </application>.RegistrationActivity

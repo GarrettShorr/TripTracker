@@ -1,9 +1,12 @@
 package com.garrettshorr.triptracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.backendless.Backendless;
 
@@ -26,5 +29,13 @@ public class TripListActivity extends AppCompatActivity {
                     .add(R.id.trip_list_container, new TripListFragment(), "TripListFragment")
                     .commit();
 
+        FloatingActionButton addTrip = (FloatingActionButton) findViewById(R.id.add_new_trip_fab);
+        addTrip.setOnClickListener(  new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TripListActivity.this, TripActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

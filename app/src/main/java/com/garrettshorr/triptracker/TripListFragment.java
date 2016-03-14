@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,16 +35,16 @@ import java.util.List;
 /**
  * Created by g on 2/24/2016.
  */
-public class TripListFragment extends Fragment {
+    public class TripListFragment extends ListFragment {
     private List<Trip> mTrips;
     private ListView listView;
     private TripAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_triplist, container, false);
-        final TextView t = (TextView) rootView.findViewById(R.id.test_textview);
-        listView = (ListView) rootView.findViewById(R.id.trip_list);
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        //final TextView t = (TextView) rootView.findViewById(R.id.test_textview);
+        listView = (ListView) rootView.findViewById(android.R.id.list);
 
         /*    ----------------Testing out the database---------------- */
 //        final BackendlessUser user = Backendless.UserService.CurrentUser();
@@ -70,7 +74,8 @@ public class TripListFragment extends Fragment {
         mTrips = new ArrayList<>();
         populateTrips();
         adapter = new TripAdapter(mTrips);
-        listView.setAdapter(adapter);
+        setListAdapter(adapter);
+
         return rootView;
     }
 
@@ -100,10 +105,10 @@ public class TripListFragment extends Fragment {
             tripName.setText(t.getTripName());
             TextView startDate = (TextView) convertView.findViewById(R.id.list_item_trip_start_date);
             DateFormat df = new DateFormat();
-            startDate.setText(df.format("YYYY-MM-DD", t.getStartDate()));
+            startDate.setText(df.format("yyyy-MM-dd", t.getStartDate()));
             return  convertView;
         }
-    }
+    } 
 
     private LoadingCallback<BackendlessCollection<Trip>> createTripRetrievalCallback() {
         return new LoadingCallback<BackendlessCollection<Trip>>(getActivity(),
@@ -112,7 +117,8 @@ public class TripListFragment extends Fragment {
             @Override
             public void handleResponse(BackendlessCollection<Trip> trips) {
                 super.handleResponse(trips);
-                mTrips = Arrays.asList(trips.getData().toArray(new Trip[trips.getTotalObjects()]));
+                //mTrips = Arrays.asList(trips.getData().toArray(new Trip[trips.getTotalObjects()]));
+                mTrips = trips.getData();
                 adapter.clear();
                 adapter.addAll(mTrips);
                 adapter.notifyDataSetChanged();
@@ -121,6 +127,32 @@ public class TripListFragment extends Fragment {
         };
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        //Make an intent
+        Intent i = new Intent(getActivity(), TripActivity.class);
+        //Set the extras
+        Trip t = mTrips.get(position);
+        i.putExtra(Trip.EXTRA_TRIP_NAME, t.getTripName());
+        i.putExtra(Trip.EXTRA_TRIP_DESCRIPTION, t.getTripDescription());
+        i.putExtra(Trip.EXTRA_START_DATE, t.getStartDate().getTime());
+        i.putExtra(Trip.EXTRA_END_DATE, t.getEndDate().getTime());
+        i.putExtra(Trip.EXTRA_IS_PUBLIC, t.getIsPublic());
+        i.putExtra(Trip.EXTRA_OWNER_ID, t.getOwner());
+        i.putExtra(Trip.EXTRA_OBJECT_ID, t.getObjectId());
+        //Launch the activity
+        startActivity(i);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateTrips();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.trip_list_options_menu, menu);
+    }
 }
 

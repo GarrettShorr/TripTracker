@@ -20,6 +20,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <activity android:name=".RegistrationActivity"
@@ -37,6 +38,16 @@
 
         </activity>
 
+        <activity android:name=".TripActivity"
+            android:label="Trip"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".TripListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.garrettshorr.triptracker.TripListActivity"/>
+
+
+        </activity>
         <service android:name="com.backendless.AndroidService" />
 
     </application>.RegistrationActivity

@@ -13,9 +13,15 @@
     <!-- button text -->
     <string name="submit_button">Submit</string>
     <string name="login_button_text">Login</string>
+    <string name="trip_save_button">Save</string>
 
     <!-- texts -->
     <string name="registration_text">Or register a new account.</string>
+    <string name="trip_name">Trip Name:</string>
+    <string name="trip_description">Trip Description:</string>
+    <string name="trip_start_date">Start Date:</string>
+    <string name="trip_end_date">End Date:</string>
+    <string name="trip_is_public">Public:</string>
 
     <!-- Actionbar Labels -->
     <string name="reg_activity_label">Register a TripTracker Account</string>
@@ -42,4 +48,8 @@
     <string name="info_registered_success">Registered successfully</string>
     <string name="info_logged_in">Logged in. ObjectId: %s</string>
 
+    <!-- menu items -->
+    <string name="menu_my_trips">My Trips</string>
+    <string name="menu_public_trips">Public Trips</string>
+    <string name="menu_logout">Logout</string>
 </resources>

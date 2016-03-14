@@ -7,7 +7,15 @@ import java.util.Date;
  */
 public class Trip {
 
-    private int tripID;
+    public transient static String EXTRA_TRIP_NAME = "trip_name";
+    public transient static String EXTRA_TRIP_DESCRIPTION ="trip_desc";
+    public transient static String EXTRA_START_DATE = "trip_start_date";
+    public transient static String EXTRA_END_DATE = "trip_end_date";
+    public transient static String EXTRA_OWNER_ID = "trip_owner_id";
+    public transient static String EXTRA_IS_PUBLIC = "trip_is_public";
+    public transient static String EXTRA_OBJECT_ID = "trip_object_id";
+
+    private String objectId;
     private String tripName;
     private String tripDescription;
     private Date startDate;
@@ -27,21 +35,21 @@ public class Trip {
 
     }
 
-    public Trip(int tripID, String tripName, String tripDescription, Date startDate, boolean isPublic, Date endDate) {
-        this.tripID = tripID;
+    public Trip(String tripName, String tripDescription, Date startDate, boolean isPublic, Date endDate, String owner) {
         this.tripName = tripName;
         this.tripDescription = tripDescription;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isPublic = isPublic;
+        this.owner = owner;
     }
 
-    public int getTripID() {
-        return tripID;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setTripID(int tripID) {
-        this.tripID = tripID;
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 
     public String getTripName() {
@@ -76,22 +84,14 @@ public class Trip {
         this.endDate = endDate;
     }
 
-    public boolean isPublic() {
+    public boolean getIsPublic() {
         return isPublic;
     }
 
-    public void setPublic(boolean aPublic) {
+    public void setIsPublic(boolean aPublic) {
         isPublic = aPublic;
     }
 
-    //    public Trip() {
-//        mUserId = "";
-//        mTrip = "Mordor";
-//        mTripDesc = "Destroying the One Ring";
-//        mStartDate = new Date();
-//        mEndDate = new Date();
-//        mIsPublic = false;
-//    }
     public String toString() {
         return tripName;
     }
